@@ -1,12 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { useRef, useState, useEffect, KeyboardEvent, ClipboardEvent } from 'react';
+import { useRef, useState, useEffect, KeyboardEvent, ClipboardEvent, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 const OTP_LENGTH = 6;
 
-export default function VerifyPage() {
+// 1. Rename your main component to 'VerifyContent'
+function VerifyContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get('email') ?? '';
@@ -64,17 +65,7 @@ export default function VerifyPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white flex flex-col px-6 py-8 sm:px-10">
-      <Link href="/" className="flex items-center gap-2">
-        <div className="w-7 h-7 rounded-lg bg-[#0061FE] flex items-center justify-center">
-          <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-          </svg>
-        </div>
-        <span className="font-black text-gray-900 tracking-tight text-lg">Solarsas</span>
-      </Link>
-
-      <div className="flex-1 flex flex-col items-center justify-center py-12">
+    <div className="flex-1 flex flex-col items-center justify-center py-12 w-full">
         <div className="w-full max-w-sm">
           <div className="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center mb-6 mx-auto">
             <svg className="w-7 h-7 text-[#0061FE]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -155,6 +146,32 @@ export default function VerifyPage() {
           </p>
         </div>
       </div>
+  );
+}
+
+// 2. Create the new default export that wraps the content in Suspense
+export default function VerifyPage() {
+  return (
+    <div className="min-h-screen bg-white flex flex-col px-6 py-8 sm:px-10">
+      <Link href="/" className="flex items-center gap-2">
+        <div className="w-7 h-7 rounded-lg bg-[#0061FE] flex items-center justify-center">
+          <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+          </svg>
+        </div>
+        <span className="font-black text-gray-900 tracking-tight text-lg">Solarsas</span>
+      </Link>
+
+      <Suspense fallback={
+        <div className="flex-1 flex flex-col items-center justify-center py-12">
+           <svg className="w-8 h-8 text-[#0061FE] animate-spin" fill="none" viewBox="0 0 24 24">
+             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+           </svg>
+        </div>
+      }>
+        <VerifyContent />
+      </Suspense>
 
       <Link href="mailto:hello@solarsas.com" className="flex items-center justify-center gap-2 text-xs text-gray-400 hover:text-gray-600 transition-colors">
         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
