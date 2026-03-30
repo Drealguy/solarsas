@@ -155,7 +155,7 @@ export const DEFAULT_CONFIG: CalcConfig = {
   contactWhatsapp: '',
   wattageOverrides: {},
   appliances: PRESET_APPLIANCES,
-  published: false,
+  published: true,
 };
 
 // ─── Calculation engine ───────────────────────────────────────────────────────
