@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls \"c:/Users/DLLL/solarsas/app/\\(dashboard\\)/dashboard/\")",
+      "Bash(npx tsc:*)",
+      "Bash(taskkill /PID 11028 /F)",
+      "Bash(MSYS_NO_PATHCONV=1 taskkill /PID 11028 /F)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "Bash(ls \"c:/Users/DLLL/solarsas/app/\\(dashboard\\)/\")"
+    ]
+  }
+}
