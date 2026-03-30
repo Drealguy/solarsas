@@ -18,8 +18,12 @@ export function proxy(req: NextRequest) {
     return NextResponse.rewrite(new URL(`/dashboard${url.pathname}`, req.url));
   }
 
-  // 3. Route to the Main Landing Page (solarsas.com or www.solarsas.com)
-  if (hostname === baseDomain || hostname === `www.${baseDomain}`) {
+ // 3. Route to the Main Landing Page (solarsas.com, www.solarsas.com, or Vercel)
+  if (
+    hostname === baseDomain || 
+    hostname === `www.${baseDomain}` || 
+    hostname === 'usesolarsas.vercel.app' // 👈 YOUR NEW VERCEL LINK!
+  ) {
     return NextResponse.rewrite(new URL(`${url.pathname}`, req.url));
   }
 
